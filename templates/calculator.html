@@ -29,10 +29,10 @@
 
              <div class="col-xs-3">
                  <select name="sign">
-                   <option value="add">+</option>
-                   <option value="sub">-</option>
-                   <option value="mult">&times;</option>
-                   <option value="divi">&divide;</option>
+                   <option value="+">+</option>
+                   <option value="-">-</option>
+                   <option value="&times;">&times;</option>
+                   <option value="&divide;">&divide;</option>
                  </select>
              </div>
 
@@ -42,7 +42,7 @@
 
             <input class="btn btn-default" type="submit" value="MAGIC">
         </form>
-        <h1>{{ solution }}</h1>
+        <h1>{{ n1 }} {{ sign }} {{ n2 }} = {{ solution }}</h1>
     </div>
   </body>
 </html>
