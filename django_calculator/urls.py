@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from calculator_app.views import calculator_view
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', calculator_view, name='calculator_view')
 ]
