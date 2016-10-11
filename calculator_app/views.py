@@ -13,17 +13,16 @@ def operation(num1, num2, sign):
 
 
 def calculator_view(request):
-    if request.GET:
-        if request.GET != "" and request.GET == int:
+    if request.GET != "" or request.GET == int:
+        if request.GET:
             num1 = int(request.GET['num1'])
             num2 = int(request.GET['num2'])
             sign = request.GET['sign']
-            print(request.GET)
         else:
             num1 = 0
             num2 = 0
             sign = 'add'
-
+        print(request.GET)
     context = {
         "solution": operation(num1, num2, sign),
     }
