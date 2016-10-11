@@ -21,14 +21,14 @@
   <body>
     <h1>THE MATH MACHINE</h1>
     <div class="container">
-        <form class="" action="" method="post">
+        <form class="" action="" method="get">
             {% csrf_token %}
              <div class="col-xs-3">
-                <input type="text" class="form-control" placeholder="PUT A NUMBER HERE" name="num1">
+                <input type="number" class="form-control" placeholder="PUT A NUMBER HERE" name="num1">
              </div>
 
              <div class="col-xs-3">
-                 <select>
+                 <select name="sign">
                    <option value="add">+</option>
                    <option value="sub">-</option>
                    <option value="mult">&times;</option>
@@ -37,11 +37,12 @@
              </div>
 
             <div class="col-xs-3">
-                <input type="text" class="form-control" placeholder="ANOTHER NUMBER HERE" name="num2">
+                <input type="number" class="form-control" placeholder="ANOTHER NUMBER" name="num2">
             </div>
 
-            <input class="btn btn-default" type="submit" value="MAGIC MATH STUFF">
+            <input class="btn btn-default" type="submit" value="MAGIC">
         </form>
+        {{ solution }}
     </div>
   </body>
 </html>
