@@ -6,7 +6,7 @@ def operation(num1, num2, sign):
         return num1 + num2
     elif sign == '-':
         return num1 - num2
-    elif sign == '&times;':
+    elif sign == '*':
         return num1 * num2
     else:
         return num1 / num2
@@ -19,15 +19,15 @@ def calculator_view(request):
             num2 = int(request.GET['num2'])
             sign = request.GET['sign']
     else:
-        num1 = 0
-        num2 = 0
+        num1 = 1
+        num2 = 1
         sign = 'add'
         print(request.GET)
+        
     context = {
         'n1': num1,
         'n2': num2,
         'sign': sign,
         'solution': operation(num1, num2, sign),
-
     }
     return render(request, 'calculator.html', context)
