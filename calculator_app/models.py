@@ -15,11 +15,8 @@ class Operation(models.Model):
     num2 = models.FloatField()
     sign = models.CharField(max_length=1, choices=SIGN)
 
-    def __str__(self):
-        return self.user
-
     @property
-    def operation(self):
+    def calculate(self):
         sign, num1, num2 = [self.sign, self.num1, self.num2]
         if sign == '+':
             return num1 + num2
@@ -38,3 +35,7 @@ USER_TYPE = [
 class Profile(models.Model):
     user = models.OneToOneField('auth.User')
     user_type = models.CharField(max_length=1, choices=USER_TYPE)
+
+    @property
+    def is_owner(self):
+        return self.user_type == 'o'

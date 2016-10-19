@@ -1,6 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
-  <a href="{% url 'profile_update_view' profile.id %}">Update</a>
-  
+  <a href="{% url 'profile_update_view' object.id %}">Update</a>
+    {{ object.user }}
+    {% for operation in operation_list %}
+      {% if request.user == operation.user or request.user.profile.is_owner %}
+        <div class="">
+          {{ operation.num1 }} {{ operation.sign }} {{ operation.num2 }} = {{ operation.calculate }}, By: {{ operation.user }}
+        </div>
+      {% endif %}
+  {% endfor %}
 
 {% endblock %}

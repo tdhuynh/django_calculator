@@ -16,6 +16,9 @@
     <a href="{% url 'user_create_view' %}">Create User</a>
     {% if not request.user.is_authenticated %}
       <a href="{% url 'login' %}">Login</a>
+      {% else %}
+      <a href="{% url 'profile_detail_view' user.id %}">Go to Profile</a>
+      <a href="{% url 'logout' %}?next={% url 'calculator_view' %}">Logout</a>
     {% endif %}
     <h1>THE MATH MACHINE</h1>
     <div class="container">

@@ -32,6 +32,16 @@ class UserCreateView(CreateView):
 class ProfileDetailView(DetailView):
     model = Profile
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["operation_list"] = Operation.objects.all()
+        return context
+
+    def get_queryset(self):
+        if  self.request.user.profile.is_owner:
+            return Profile.objects.all()
+        return Profile.objects.filter(user=self.request.user)
+
 
 class ProfileUpdateView(UpdateView):
     model = Profile
@@ -39,3 +49,8 @@ class ProfileUpdateView(UpdateView):
 
     def get_success_url(self, **kwargs):
         return reverse_lazy('profile_detail_view', args=[int(self.kwargs['pk'])])
+
+    def get_queryset(self):
+        if  self.request.user.profile.is_owner:
+            return Profile.objects.all()
+        return Profile.objects.filter(user=self.request.user)
