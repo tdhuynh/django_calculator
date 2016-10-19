@@ -1,3 +1,4 @@
 from django.contrib import admin
+from calculator_app.models import Operation, Profile
 
-# Register your models here.
+admin.site.register([Operation, Profile])

@@ -1,48 +1,25 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Django Calculator</title>
-    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" media="screen" title="no title">
-    <style media="screen">
-        body {
-            background-color: purple;
-            text-align: center;
-            color: silver;
-        }
-        select {
-            text-align: center;
-            width: 75px;
-            font-size: 50px;
-        }
-    </style>
-  </head>
-  <body>
-    <h1>THE MATH MACHINE</h1>
-    <div class="container">
-        <form class="" action="" method="get">
-            {% csrf_token %}
-             <div class="col-xs-3">
-                <input type="number" class="form-control" placeholder="PUT A NUMBER HERE" name="num1">
-             </div>
+{% extends 'base.html' %}
+{% block content %}
+  <form class="" action="" method="get">
+      {% csrf_token %}
+       <div class="col-xs-3">
+          <input type="number" class="form-control" placeholder="PUT A NUMBER HERE" name="num1">
+       </div>
 
-             <div class="col-xs-3">
-                 <select name="sign">
-                   <option value="+">+</option>
-                   <option value="-">-</option>
-                   <option value="*">&times;</option>
-                   <option value="&divide;">&divide;</option>
-                 </select>
-             </div>
+       <div class="col-xs-3">
+           <select name="sign">
+             <option value="+">+</option>
+             <option value="-">-</option>
+             <option value="*">&times;</option>
+             <option value="&divide;">&divide;</option>
+           </select>
+       </div>
 
-            <div class="col-xs-3">
-                <input type="number" class="form-control" placeholder="ANOTHER NUMBER" name="num2">
-            </div>
+      <div class="col-xs-3">
+          <input type="number" class="form-control" placeholder="ANOTHER NUMBER" name="num2">
+      </div>
 
-            <input class="btn btn-default" type="submit" value="MAGIC">
-        </form>
-        <h1>{{ n1 }} {{ sign }} {{ n2 }} = {{ solution }}</h1>
-    </div>
-  </body>
-</html>
+      <input class="btn btn-default" type="submit" value="MAGIC">
+  </form>
+  <h1>{{ n1 }} {{ sign }} {{ n2 }} = {{ solution }}</h1>
+{% endblock %}
