@@ -1,52 +1,41 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from django.views.generic import TemplateView
+from django.views.generic import DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.urls import reverse_lazy
-
-from calculator_app.models import Profile
-
-def operation(num1, num2, sign):
-    if sign == '+':
-        return num1 + num2
-    elif sign == '-':
-        return num1 - num2
-    elif sign == '*':
-        return num1 * num2
-    else:
-        return num1 / num2
+from calculator_app.models import Profile, Operation
 
 
-def calculator_view(request):
-    if request.GET:
-        if request.GET != "" or request.GET == int:
-            num1 = int(request.GET['num1'])
-            num2 = int(request.GET['num2'])
-            sign = request.GET['sign']
-    else:
-        num1 = 1
-        num2 = 1
-        sign = 'add'
-        print(request.GET)
+class CalculatorView(CreateView):
+    model = Operation
+    success_url = reverse_lazy('calculator_view')
+    fields = ('num1', 'sign', 'num2')
 
-    context = {
-        'n1': num1,
-        'n2': num2,
-        'sign': sign,
-        'solution': operation(num1, num2, sign),
-    }
-    return render(request, 'calculator.html', context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["operation_list"] = Operation.objects.all()
+        return context
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        instance.user = self.request.user
+        return super().form_valid(form)
+
 
 class UserCreateView(CreateView):
     model = User
     form_class = UserCreationForm
     success_url = reverse_lazy('calculator_view')
 
-class ProfileView(TemplateView):
-    template_name = "profile.html"
+
+class ProfileDetailView(DetailView):
+    model = Profile
+
 
 class ProfileUpdateView(UpdateView):
     model = Profile
-    success_url = reverse_lazy('calculator_view')
     fields = ('user_type',)
+
+    def get_success_url(self, **kwargs):
+        return reverse_lazy('profile_detail_view', args=[int(self.kwargs['pk'])])

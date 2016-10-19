@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+  <form class="" action="" method="post">
+    {% csrf_token %}
+    <div class="col-xs-4">
+       <input type="number" class="form-control" placeholder="PUT A NUMBER HERE" name="num1">
+    </div>
+
+    <div class="col-xs-1">
+        <select name="sign">
+          <option value="+">+</option>
+          <option value="-">-</option>
+          <option value="*">&times;</option>
+          <option value="&divide;">&divide;</option>
+        </select>
+    </div>
+
+    <div class="col-xs-4">
+       <input type="number" class="form-control" placeholder="ANOTHER NUMBER" name="num2">
+    </div>
+
+    <input class="btn btn-default col-xs-1" type="submit" value="MAGIC">
+    </form>
+
+    <h1 class="col-xs-3">{{ operation_list.last.operation }}</h1>
+{% endblock %}
