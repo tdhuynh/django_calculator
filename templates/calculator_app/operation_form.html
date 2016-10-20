@@ -1,26 +1,35 @@
 {% extends 'base.html' %}
 {% block content %}
-  <form class="" action="" method="post">
-    {% csrf_token %}
-    <div class="col-xs-4">
-       <input type="number" class="form-control" placeholder="PUT A NUMBER HERE" name="num1">
-    </div>
 
-    <div class="col-xs-1">
-        <select name="sign">
-          <option value="+">+</option>
-          <option value="-">-</option>
-          <option value="*">&times;</option>
-          <option value="/">&divide;</option>
-        </select>
-    </div>
+{% if request.user.is_authenticated %}
+<div class="row">
+<div class="col-md-6">
+  <h1>Have fun with math.</h1>
+</div>
+<div class="col-md-6">
+<div class="panel panel-default">
+  <div class="panel-body">
+    <form class="" action="" method="post">
+      {% csrf_token %}
+         <input type="number" class="form-control" placeholder="NUMBER HERE" name="num1">
+          <select name="sign">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">&times;</option>
+            <option value="/">&divide;</option>
+          </select>
+         <input type="number" class="form-control" placeholder="ANOTHER NUMBER" name="num2">
+      <input class="btn btn-default" type="submit" value="Submit">
+      </form>
+      <div class="panel-body">
+        <h1>{{ operation_list.last.calculate }}</h1>
+      </div>
+  </div>
+</div>
+</div>
+{% else %}
+  <h1>Create a user, then log in to have a great time with math.</h1>
+{% endif %}
 
-    <div class="col-xs-4">
-       <input type="number" class="form-control" placeholder="ANOTHER NUMBER" name="num2">
-    </div>
-
-    <input class="btn btn-default col-xs-1" type="submit" value="MAGIC">
-    </form>
-
-    <h1 class="col-xs-3">{{ operation_list.last.calculate }}</h1>
+</div>
 {% endblock %}

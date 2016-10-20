@@ -1,13 +1,19 @@
 {% extends 'base.html' %}
+
 {% block content %}
-  <a href="{% url 'profile_update_view' object.id %}">Update</a>
-    {{ object.user }}
+
+<div class="panel panel-default">
+  <div class="panel-heading">Logged in as: {{ object.user }} | <a href="{% url 'profile_update_view' object.id %}">Update</a></div>
     {% for operation in operation_list %}
       {% if request.user == operation.user or request.user.profile.is_owner %}
-        <div class="">
-          {{ operation.num1 }} {{ operation.sign }} {{ operation.num2 }} = {{ operation.calculate }}, By: {{ operation.user }}
+        <div class="panel-body">
+          <div>
+            {{ operation.num1 }} {{ operation.sign }} {{ operation.num2 }} = {{ operation.calculate }}, By: <b>{{ operation.user }}</b>
+          </div>
         </div>
-      {% endif %}
-  {% endfor %}
+        {% endif %}
+    {% endfor %}
+
+</div>
 
 {% endblock %}

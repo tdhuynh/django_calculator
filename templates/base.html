@@ -7,20 +7,33 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" media="screen" title="no title">
     <style media="screen">
         body {
-            background-color: purple;
-            color: silver;
+            background-color: lightyellow;
         }
     </style>
   </head>
   <body>
-    <a href="{% url 'user_create_view' %}">Create User</a>
-    {% if not request.user.is_authenticated %}
-      <a href="{% url 'login' %}">Login</a>
-      {% else %}
-      <a href="{% url 'profile_detail_view' user.id %}">Go to Profile</a>
-      <a href="{% url 'logout' %}?next={% url 'calculator_view' %}">Logout</a>
-    {% endif %}
-    <h1>THE MATH MACHINE</h1>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <p class="navbar-text">Django Calculator</p>
+          <a href="{% url 'user_create_view' %}">
+            <button type="button" class="btn btn-default navbar-btn">Create User</button>
+          </a>
+          {% if not request.user.is_authenticated %}
+          <a href="{% url 'login' %}">
+            <button type="button" class="btn btn-default navbar-btn">Login</button>
+          </a>
+            {% else %}
+          <a href="{% url 'profile_detail_view' user.id %}">
+            <button type="button" class="btn btn-default navbar-btn">Go to Profile</button>
+          </a>
+          <a href="{% url 'logout' %}?next={% url 'calculator_view' %}">
+            <button type="button" class="btn btn-default navbar-btn">Logout</button>
+          </a>
+          {% endif %}
+        </div>
+      </div>
+    </nav>
     <div class="container">
       {% block content %}
       {% endblock %}
